@@ -1,0 +1,24 @@
+{
+  "name": "client",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build && pnpm copy",
+    "preview": "vite preview",
+    "copy": "copyfiles -a public/*.* ../../dist && copyfiles public/**/*.* ../../dist && copyfiles public/**/*.* ../../dist",
+    "clean": "rimraf public && rimraf node_modules"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "copyfiles": "^2.4.1",
+    "rimraf": "^3.0.2",
+    "terser": "^5.16.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.0.0"
+  },
+  "dependencies": {
+    "redux": "^4.2.0"
+  }
+}

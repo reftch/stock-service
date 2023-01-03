@@ -1,0 +1,24 @@
+{
+  "editor.detectIndentation": false,
+  "editor.cursorBlinking": "smooth",
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "[css]": {
+    "editor.tabSize": 2
+  },
+  "[html]": {
+    "editor.tabSize": 2
+  },
+  "[xml]": {
+    "editor.tabSize": 2
+  },
+  "[json]": {
+    "editor.tabSize": 2
+  },
+  "[javascript]": {
+    "editor.tabSize": 2
+  },
+  "[typescript]": {
+    "editor.tabSize": 2
+  },
+}

@@ -1,0 +1,12 @@
+.header {
+  text-align: center;
+  color: var(--primary);
+  background-color: var(--background-header);
+  border-bottom: 2px solid var(--selected);
+}
+
+.header-input {
+  padding: 10px;
+  margin: 0 auto;
+  width: 300px;
+}
