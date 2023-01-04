@@ -3,10 +3,45 @@
   color: var(--primary);
   background-color: var(--background-header);
   border-bottom: 2px solid var(--selected);
+
+  display: flex;
+  justify-content: center;
 }
 
 .header-input {
   padding: 10px;
   margin: 0 auto;
   width: 300px;
+}
+
+.header-right {
+  display: flex;
+  float: right;
+  padding: 10px;
+}
+
+button {
+  border-radius: 4px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--background-button-primary);
+  cursor: pointer;
+  transition: border-color 0.15s;
+  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  border-color: var(--border-color);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.username {
+  padding: 10px;
 }

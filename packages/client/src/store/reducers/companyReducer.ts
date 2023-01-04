@@ -1,8 +1,9 @@
 import { AnyAction } from 'redux';
+import { CompanyState } from '../../model';
 
-const initialState = {
+const initialState: CompanyState = {
   items: [],
-  item: '',
+  item: undefined,
   keyword: '',
 };
 
@@ -19,7 +20,7 @@ export const companyReducer = (state = initialState, action: AnyAction) => {
     }
 
     case 'company/setItem': {
-      state.item = action.item;
+      state.item = Object.assign({}, action.item);
       return state;
     }
 

@@ -1,3 +1,4 @@
+import { Company } from "../../model";
 import { actions, store } from "../../store";
 import { BaseElement } from "../base.element";
 import css from './search.element.css?raw';
@@ -5,6 +6,7 @@ import css from './search.element.css?raw';
 export class SearchElement extends BaseElement {
 
   private field: HTMLInputElement | undefined;
+  private isFilterDone = false;
 
   connectedCallback(): void {
     super.connectedCallback();
@@ -16,10 +18,21 @@ export class SearchElement extends BaseElement {
   change = async () => {
     const value = this.field?.value;
     if (value) {
-      await actions.company.fetch(store.dispatch, value, this.success, this.error);
+      store.dispatch({ type: 'company/setKeyword', keyword: value });
+      this.triggerFiltering();
     } else {
       store.dispatch({ type: 'company/setItems', items: [] });
       this.collapse();
+    }
+  }
+
+  protected async triggerFiltering() {
+    if (!this.isFilterDone) {
+      this.isFilterDone = true;
+      setTimeout(() => {
+        actions.company.fetch(store.dispatch, this.success, this.error);
+        this.isFilterDone = false;
+      }, 800);
     }
   }
 
@@ -29,9 +42,9 @@ export class SearchElement extends BaseElement {
     if (options) {
       if (Array.isArray(companies) && companies.length > 0) {
         options.classList.add('visible');
-        const html = companies.map((c: any) => /*html*/`
+        const html = companies.map((c: Company) => /*html*/`
             <div class="item">
-              <span class="symbol">${c['1. symbol']}</span>
+              <span class="symbol">${c.symbol}</span>
             </div>
             `).join('');
         options.innerHTML = html;
@@ -51,12 +64,15 @@ export class SearchElement extends BaseElement {
   }
 
   selectItem = (e: Event) => {
-    const item = (e.target as HTMLElement).firstElementChild?.innerHTML;
-    store.dispatch({ type: 'company/setItem', item: item });
-    if (this.field) {
-      this.field.value = item ?? '';
+    const symbol = (e.target as HTMLElement).firstElementChild?.innerHTML;
+    const item: Company = store.getState().company.items.find((c: Company) => c.symbol === symbol);
+    if (item) {
+      store.dispatch({ type: 'company/setItem', item: item });
+      if (this.field) {
+        this.field.value = item.symbol ?? '';
+      }
+      this.collapse();
     }
-    this.collapse();
   }
 
   get html(): string {
