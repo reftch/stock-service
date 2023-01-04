@@ -5,6 +5,7 @@ const initialState: CompanyState = {
   items: [],
   item: undefined,
   keyword: '',
+  overview: undefined,
 };
 
 export const companyReducer = (state = initialState, action: AnyAction) => {
@@ -20,7 +21,13 @@ export const companyReducer = (state = initialState, action: AnyAction) => {
     }
 
     case 'company/setItem': {
+      localStorage.setItem('company', JSON.stringify(action.item));
       state.item = Object.assign({}, action.item);
+      return state;
+    }
+
+    case 'company/setOverview': {
+      state.overview = Object.assign({}, action.overview);
       return state;
     }
 

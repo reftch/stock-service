@@ -3,9 +3,9 @@ import { ActionCallback, AppDispatch, store } from '../index';
 
 export const companyActions = {
 
-  async fetch(dispatch: AppDispatch, success: ActionCallback, error: ActionCallback) {
+  async search(dispatch: AppDispatch, success: ActionCallback, error: ActionCallback) {
     const keyword = store.getState().company.keyword;
-    const response = await fetch(`/stock-service/api/v1/companies?keyword=${keyword}`, {
+    const response = await fetch(`/stock-service/api/v1/search?keyword=${keyword}`, {
       method: 'GET',
       headers: this.getHeaders(),
     });
@@ -18,6 +18,41 @@ export const companyActions = {
     const json = await response.json();
     const items = json.bestMatches.map((i: DynamicObject) => this.getItem(i));
     dispatch({ type: 'company/setItems', items: items });
+    success(response);
+  },
+
+  async overview(dispatch: AppDispatch, success: ActionCallback, error: ActionCallback) {
+    const symbol = store.getState().company.item.symbol;
+    const response = await fetch(`/stock-service/api/v1/overview?symbol=${symbol}`, {
+      method: 'GET',
+      headers: this.getHeaders(),
+    });
+
+    if (response.status !== 200) {
+      error(response);
+      return;
+    }
+
+    const json = await response.json();
+    dispatch({ type: 'company/setOverview', overview: json });
+    success(response);
+  },
+
+  async daily(dispatch: AppDispatch, success: ActionCallback, error: ActionCallback) {
+    const symbol = store.getState().company.item.symbol;
+    const response = await fetch(`/stock-service/api/v1/daily?symbol=${symbol}`, {
+      method: 'GET',
+      headers: this.getHeaders(),
+    });
+
+    if (response.status !== 200) {
+      error(response);
+      return;
+    }
+
+    const json = await response.json();
+    console.log(json);
+    // dispatch({ type: 'company/setOverview', overview: json });
     success(response);
   },
 

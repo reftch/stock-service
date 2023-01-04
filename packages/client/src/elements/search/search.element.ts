@@ -5,6 +5,10 @@ import css from './search.element.css?raw';
 
 export class SearchElement extends BaseElement {
 
+  static get observedAttributes() {
+    return ['keyword'];
+  }
+
   private field: HTMLInputElement | undefined;
   private isFilterDone = false;
 
@@ -15,7 +19,14 @@ export class SearchElement extends BaseElement {
     this.field?.focus();
   }
 
-  change = async () => {
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    console.log(name);
+    if (name === 'keyword' && this.field) {
+      this.field.value = newValue;
+    }
+  }
+
+  change = async (e: Event) => {
     const value = this.field?.value;
     if (value) {
       store.dispatch({ type: 'company/setKeyword', keyword: value });
@@ -24,19 +35,22 @@ export class SearchElement extends BaseElement {
       store.dispatch({ type: 'company/setItems', items: [] });
       this.collapse();
     }
+    if ((e as KeyboardEvent).key === 'Enter') {
+      // const
+    }
   }
 
   protected async triggerFiltering() {
     if (!this.isFilterDone) {
       this.isFilterDone = true;
       setTimeout(() => {
-        actions.company.fetch(store.dispatch, this.success, this.error);
+        actions.company.search(store.dispatch, this.onSearch, this.error);
         this.isFilterDone = false;
       }, 800);
     }
   }
 
-  success = () => {
+  onSearch = () => {
     const companies = store.getState().company.items;
     const options = this.getElement('#options');
     if (options) {
@@ -58,6 +72,7 @@ export class SearchElement extends BaseElement {
   collapse() {
     const options = this.getElement('#options');
     if (options) {
+
       options.classList.remove('visible');
       options.innerHTML = '';
     }

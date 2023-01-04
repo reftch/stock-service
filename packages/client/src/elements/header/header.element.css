@@ -1,23 +1,28 @@
 .header {
-  text-align: center;
   color: var(--primary);
   background-color: var(--background-header);
   border-bottom: 2px solid var(--selected);
+  width: 100%;
+  display: inline-grid;
+  grid-template-columns: 190px calc(100vw - 350px) 160px;
+}
 
-  display: flex;
-  justify-content: center;
+.header-title {
+  position: relative;
+  left: 0px;
+  padding: 10px 12px;
+  font-weight: 800;
+  font-size: 26px;
 }
 
 .header-input {
-  padding: 10px;
-  margin: 0 auto;
+  padding-top: 8px;
   width: 300px;
 }
 
 .header-right {
   display: flex;
-  float: right;
-  padding: 10px;
+  padding: 5px 0;
 }
 
 button {

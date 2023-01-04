@@ -26,13 +26,19 @@ export class HeaderElement extends BaseElement {
   get html(): string {
     return /*html*/`
       <div class="header">
+        <div class="header-title">
+          Stock Service
+        </div>
         <div class="header-input">
-          <search-element></search-element>
+          <div>
+            <search-element></search-element>
           </div>
-          <div class="header-right">
-            <div class="username"></div>
-            <button id="logout-btn">Logout</button>
-          </div>
+        </div>
+
+        <div class="header-right">
+          <div class="username"></div>
+          <button id="logout-btn">Logout</button>
+        </div>
       </div>
     `;
   }

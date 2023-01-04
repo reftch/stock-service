@@ -80,7 +80,7 @@
   --background-header: #35475e;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: var(--color);
   background-color: var(--background-body);
 }
 

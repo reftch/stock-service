@@ -15,7 +15,6 @@ export const applicationReducer = (state = initialState, action: AnyAction) => {
       return state;
     }
 
-
     case 'application/setCredentials': {
       sessionStorage.setItem('token', action.token);
       sessionStorage.setItem('username', action.username);
@@ -27,7 +26,7 @@ export const applicationReducer = (state = initialState, action: AnyAction) => {
     case 'application/resetCredentials': {
       sessionStorage.removeItem('token');
       sessionStorage.removeItem('username');
-      sessionStorage.removeItem('uxperies');
+      sessionStorage.removeItem('expires');
       state.username = '';
       return state;
     }

@@ -23,7 +23,7 @@ export const applicationActions = {
     error(response);
   },
 
-  async info(dispatch: AppDispatch, success: ActionCallback, error: ActionCallback) {
+  async info(dispatch: AppDispatch, callback: ActionCallback, error: ActionCallback) {
     const token = sessionStorage.getItem('token');
     if (!token) {
       error();
@@ -45,7 +45,7 @@ export const applicationActions = {
 
     const json = await response.json();
     dispatch({ type: 'application/setInfo', info: json })
-    success(response);
+    callback(response);
   }
 
 }

@@ -1,4 +1,4 @@
-import { Company } from "../../model";
+import { Company, DynamicObject } from "../../model";
 import { actions, store } from "../../store";
 import { BaseElement } from "../base.element";
 import css from './home.element.css?raw';
@@ -7,25 +7,46 @@ export class HomeElement extends BaseElement {
 
   private item: Company | undefined;
 
-  connectedCallback(): void {
+  connectedCallback() {
     super.connectedCallback();
 
     store.dispatch({ type: 'application/restoreCredentials' });
-    actions.application.info(store.dispatch, this.success, this.requireLogin);
+    actions.application.info(store.dispatch, this.onInfo, this.error);
 
-    store.subscribe(() => {
-      if (this.item !== store.getState().company.item) {
-        this.item = store.getState().company.item;
-        (this.getElement('#title') as HTMLElement).innerHTML = `${this.item?.name}`;
-      }
-    });
+    store.subscribe(this.storeUpdate);
   }
 
-  success(): void { }
+  storeUpdate = () => {
+    const company = store.getState().company.item;
 
-  requireLogin = () => {
-    store.dispatch({ type: 'application/resetCredentials' });
-    document.querySelector<HTMLDivElement>('#app')!.innerHTML = '<login-element></login-element>';
+    if (company && this.item?.symbol != company.symbol) {
+      this.item = company;
+      this.requestRender();
+    }
+  }
+
+  onInfo = () => {
+    const company = localStorage.getItem('company');
+    if (company) {
+      this.item = JSON.parse(company);
+      store.dispatch({ type: 'company/setItem', item: this.item });
+      this.requestRender();
+    }
+  }
+
+  onOverview = () => {
+    const overview = store.getState().company.overview;
+
+    (this.getElement('table-element') as DynamicObject).item = overview;
+    (this.getElement('table-element') as DynamicObject).requestUpdate();
+
+    // (this.getElement('table-element') as DynamicObject).item = overview;
+    (this.getElement('chart-element') as DynamicObject).requestUpdate();
+  }
+
+  requestUpdate() {
+    (this.getElement('#title') as HTMLElement).innerHTML = `${this.item?.name}`;
+    actions.company.overview(store.dispatch, this.onOverview, this.error);
   }
 
   get html() {
@@ -34,6 +55,14 @@ export class HomeElement extends BaseElement {
         <header-element></header-element>
         <div class="title">
           <h2 id="title"></h2>
+        </div>
+        <div class="content">
+          <div class="chart-content">
+            <chart-element></chart-element>
+          </div>
+          <div class="table-content">
+            <table-element></table-element>
+          </div>
         </div>
       </div>
     `;
