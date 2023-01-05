@@ -35,12 +35,9 @@ export class HomeElement extends BaseElement {
   }
 
   onInfo = () => {
-    const company = localStorage.getItem('company');
-    if (company) {
-      this.item = JSON.parse(company);
-      store.dispatch({ type: 'company/setItem', item: this.item });
-      this.requestRender();
-    }
+    this.item = this.getCompany();
+    store.dispatch({ type: 'company/setItem', item: this.item });
+    this.requestRender();
   }
 
   onOverview = () => {
@@ -50,23 +47,33 @@ export class HomeElement extends BaseElement {
     (this.getElement('table-element') as DynamicObject).requestUpdate();
 
     actions.company.prices(store.dispatch, this.onPrices, this.error);
-    // (this.getElement('chart-element') as DynamicObject).requestUpdate();
   }
 
   onPrices = () => {
     const dates = store.getState().company.prices.map((p: PriceState) => p.date);
     this.getElement('select-element')?.setAttribute('value', dates[0]);
     this.getElement('select-element')?.setAttribute('options', JSON.stringify(dates));
-
-    // const data = store.getState().company.prices.find((p: PriceState) => p.date === dates[0]);
-    // if (data) {
-    //   this.getElement('chart-element')?.setAttribute('data', JSON.stringify(data));
-    // }
   }
 
   requestUpdate() {
     (this.getElement('#title') as HTMLElement).innerHTML = `${this.item?.name}`;
     actions.company.overview(store.dispatch, this.onOverview, this.error);
+  }
+
+  getCompany() {
+    const company = localStorage.getItem('company');
+    return company ? JSON.parse(company) :
+      {
+        symbol: "IBM",
+        name: "International Business Machines Corp",
+        type: "Equity",
+        region: "United States",
+        marketOpen: "09:30",
+        marketClose: "16:00",
+        timezone: "UTC-04",
+        currency: "USD",
+        matchScore: "1.0000"
+      };
   }
 
   get html() {

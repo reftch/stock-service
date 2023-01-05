@@ -54,7 +54,7 @@
   top: calc(100% + 1px);
   left: 0;
   right: 0;
-  height: calc(100vh - 400px);
+  height: calc(100vh - 220px);
   overflow: auto;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
