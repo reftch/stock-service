@@ -7,6 +7,7 @@ export class SelectElement extends BaseElement {
     return ['value', 'options', 'disabled', 'width'];
   }
 
+  private value = '';
   private disabled = false;
   private options = [];
 
@@ -22,9 +23,10 @@ export class SelectElement extends BaseElement {
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     switch (name) {
       case 'value': {
-        (this.getElement('.value') as HTMLElement).innerHTML = newValue;
+        this.value = newValue;
+        (this.getElement('.value') as HTMLElement).innerHTML = this.value;
         this.dispatchEvent(new CustomEvent("change", {
-          detail: { id: this.id, value: newValue }
+          detail: { id: this.id, value: this.value }
         }));
         break;
       }
@@ -57,7 +59,9 @@ export class SelectElement extends BaseElement {
     const el = this.getElement('.options');
     if (el && this.options && this.options.length > 0) {
       let html = `<div style="padding-top: 5px">`;
-      html += this.options.map((o: string) => /*html*/`<div class="option" data-value="${o}">${o}</div>`).join('');
+      html += this.options.map((o: string) => /*html*/`
+        <div class="option ${o === this.value ? 'selected' : ''}" data-value="${o}">${o}</div>
+      `).join('');
       html += `</div>`;
       el.innerHTML = html;
     }
@@ -66,11 +70,21 @@ export class SelectElement extends BaseElement {
   }
 
   setValue = (e: Event) => {
-    const value = (e.target as Element).getAttribute('data-value');
-    (this.getElement('.value') as HTMLElement).textContent = value;
+    this.value = (e.target as Element).getAttribute('data-value') ?? '';
+    (this.getElement('.value') as HTMLElement).textContent = this.value;
     this.dispatchEvent(new CustomEvent("change", {
-      detail: { id: this.id, value: value }
+      detail: { id: this.id, value: this.value }
     }));
+    this.adjustSelected();
+  }
+
+  adjustSelected() {
+    this.getAllElements('.option')?.forEach((el: Element) => {
+      el.classList.remove('selected');
+      if (el.textContent === this.value) {
+        el.classList.add('selected');
+      }
+    });
   }
 
   activate = (e: Event) => {

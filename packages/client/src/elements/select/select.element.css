@@ -81,8 +81,12 @@
   transition: all 0.2s;
 }
 
+.option.selected {
+  background-color: var(--background-body);
+}
+
 .option:hover {
-  background-color: var(--background-body) !important;
+  background-color: var(--background-body);
 }
 
 .disabled {

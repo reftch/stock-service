@@ -1,7 +1,7 @@
 import { BaseElement } from "../base.element";
+import { PriceState } from "../../model";
 import Chart from 'chart.js/auto';
 import css from './chart.element.css?raw';
-import { PriceState } from "../../model";
 
 export class ChartElement extends BaseElement {
 
