@@ -6,6 +6,7 @@ const initialState: CompanyState = {
   item: undefined,
   keyword: '',
   overview: undefined,
+  prices: [],
 };
 
 export const companyReducer = (state = initialState, action: AnyAction) => {
@@ -28,6 +29,11 @@ export const companyReducer = (state = initialState, action: AnyAction) => {
 
     case 'company/setOverview': {
       state.overview = Object.assign({}, action.overview);
+      return state;
+    }
+
+    case 'company/setPrices': {
+      state.prices = Object.assign([], action.prices);
       return state;
     }
 

@@ -38,7 +38,7 @@ export const companyActions = {
     success(response);
   },
 
-  async daily(dispatch: AppDispatch, success: ActionCallback, error: ActionCallback) {
+  async prices(dispatch: AppDispatch, success: ActionCallback, error: ActionCallback) {
     const symbol = store.getState().company.item.symbol;
     const response = await fetch(`/stock-service/api/v1/daily?symbol=${symbol}`, {
       method: 'GET',
@@ -51,8 +51,9 @@ export const companyActions = {
     }
 
     const json = await response.json();
-    console.log(json);
-    // dispatch({ type: 'company/setOverview', overview: json });
+    const jsonPrices = json["Time Series (Daily)"];
+    const prices = Object.keys(jsonPrices).map(p => this.getPrice(p, jsonPrices[p]));
+    dispatch({ type: 'company/setPrices', prices: prices });
     success(response);
   },
 
@@ -76,6 +77,26 @@ export const companyActions = {
       timezone: item['7. timezone'],
       currency: item['8. currency'],
       matchScore: item['9. matchScore'],
+    }
+  },
+
+  getPrice(date: string, item: DynamicObject) {
+    return {
+      date: date,
+      open: item['1. open'],
+      high: item['2. high'],
+      low: item['3. low'],
+      close: item['4. close'],
+      volume: item['5. volume'],
+      // date: item['1. symbol'],
+      // name: item['2. name'],
+      // type: item['3. type'],
+      // region: item['4. region'],
+      // marketOpen: item['5. marketOpen'],
+      // marketClose: item['6. marketClose'],
+      // timezone: item['7. timezone'],
+      // currency: item['8. currency'],
+      // matchScore: item['9. matchScore'],
     }
   }
 }

@@ -1,5 +1,4 @@
 .table {
-  margin-top: 20px;
   padding-right: 10px;
   display: table;
   width: 100%;
@@ -19,7 +18,8 @@
 
 #body {
   overflow-y: auto;
-  height: calc(100vh - 225px);
+  height: calc(100% - 45px);
+  /* height: calc(100vh - 225px); */
 }
 
 .row {

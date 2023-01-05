@@ -1,4 +1,4 @@
-import { Company, DynamicObject } from "../../model";
+import { Company, DynamicObject, PriceState } from "../../model";
 import { actions, store } from "../../store";
 import { BaseElement } from "../base.element";
 import css from './home.element.css?raw';
@@ -40,8 +40,13 @@ export class HomeElement extends BaseElement {
     (this.getElement('table-element') as DynamicObject).item = overview;
     (this.getElement('table-element') as DynamicObject).requestUpdate();
 
-    // (this.getElement('table-element') as DynamicObject).item = overview;
+    actions.company.prices(store.dispatch, this.onPrices, this.error);
     (this.getElement('chart-element') as DynamicObject).requestUpdate();
+  }
+
+  onPrices = () => {
+    const dates = store.getState().company.prices.map((p: PriceState) => p.date);
+    this.getElement('select-element')?.setAttribute('options', JSON.stringify(dates));
   }
 
   requestUpdate() {
@@ -52,12 +57,15 @@ export class HomeElement extends BaseElement {
   get html() {
     return /*html*/`
       <div class="page">
-        <header-element></header-element>
+          <header-element></header-element>
         <div class="title">
           <h2 id="title"></h2>
         </div>
         <div class="content">
           <div class="chart-content">
+            <div class="select">
+              <select-element value="Daily prices..." width="200"></select-element>
+            </div>
             <chart-element></chart-element>
           </div>
           <div class="table-content">

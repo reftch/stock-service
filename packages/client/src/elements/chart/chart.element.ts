@@ -1,7 +1,6 @@
 import { BaseElement } from "../base.element";
 import Chart from 'chart.js/auto';
 import css from './chart.element.css?raw';
-import { actions, store } from "../../store";
 
 export class ChartElement extends BaseElement {
 
@@ -73,7 +72,7 @@ export class ChartElement extends BaseElement {
   }
 
   requestUpdate() {
-    actions.company.daily(store.dispatch, this.onDaily, this.error);
+    // actions.company.daily(store.dispatch, this.onDaily, this.error);
   }
 
 

@@ -7,12 +7,7 @@ exports.info = (req, res) => {
   res.status(200).json(data);
 }
 
-exports.search = (req, res) => {
-  const keyword = req.query.keyword;
-  // const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${keyword}&apikey=${ENV_ALPHA_VANTAGE_KEY}`;
-  const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=BA&apikey=demo`;
-
-  // console.log(keyword);
+fetch = (url, req, res) => {
   https.get(url, (result) => {
     if (result.statusCode === 200) {
       let data = ''
@@ -22,6 +17,14 @@ exports.search = (req, res) => {
   }).on('error', (e) => {
     console.error(e);
   });
+}
+
+exports.search = (req, res) => {
+  const keyword = req.query.keyword;
+  // const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${keyword}&apikey=${ENV_ALPHA_VANTAGE_KEY}`;
+  const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=BA&apikey=demo`;
+
+  fetch(url, req, res);
 }
 
 exports.overview = (req, res) => {
@@ -29,16 +32,7 @@ exports.overview = (req, res) => {
   // const url = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}&apikey=${ENV_ALPHA_VANTAGE_KEY}`;
   const url = 'https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo'
 
-  // console.log(keyword);
-  https.get(url, (result) => {
-    if (result.statusCode === 200) {
-      let data = ''
-      result.on('data', (chunk) => data += chunk);
-      result.on('end', () => res.status(200).json(JSON.parse(data)));
-    }
-  }).on('error', (e) => {
-    console.error(e);
-  });
+  fetch(url, req, res);
 }
 
 exports.daily = (req, res) => {
@@ -46,13 +40,5 @@ exports.daily = (req, res) => {
   // const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${ENV_ALPHA_VANTAGE_KEY}`;
   const url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=demo';
 
-  https.get(url, (result) => {
-    if (result.statusCode === 200) {
-      let data = ''
-      result.on('data', (chunk) => data += chunk);
-      result.on('end', () => res.status(200).json(JSON.parse(data)));
-    }
-  }).on('error', (e) => {
-    console.error(e);
-  });
+  fetch(url, req, res);
 }

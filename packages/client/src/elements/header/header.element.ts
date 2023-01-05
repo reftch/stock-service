@@ -37,7 +37,7 @@ export class HeaderElement extends BaseElement {
 
         <div class="header-right">
           <div class="username"></div>
-          <button id="logout-btn">Logout</button>
+          <button id="logout-btn"><span class="logout"></span></button>
         </div>
       </div>
     `;

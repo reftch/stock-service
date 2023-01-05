@@ -1,0 +1,97 @@
+.wrapper {
+  user-select: none;
+  cursor: pointer;
+}
+
+.select {
+  display: flex;
+  flex-direction: column;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  font-weight: 600;
+  color: var(--input-color);
+  border-bottom: 1px solid var(--hover-background);
+  background-color: var(--background-input);
+}
+
+.select.open .options {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+.select-trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  height: 33px;
+  line-height: 33px;
+  border-radius: 4px;
+  border: 1px solid var(--color);
+}
+
+.arrow::after {
+  font-family: bootstrap-icons !important;
+  content: "\f282";
+  display: inline-block;
+  position: relative;
+  padding: 8px 0px 5px 10px;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.open .arrow::after {
+  font-family: bootstrap-icons !important;
+  content: "\f286";
+  display: inline-block;
+  position: relative;
+  padding: 8px 0px 5px 10px;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.options {
+  position: absolute;
+  display: block;
+  top: calc(100% + 1px);
+  left: 0;
+  right: 0;
+  height: calc(100vh - 400px);
+  overflow: auto;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: var(--input-background);
+  background-color: rgb(255, 251, 251);
+  transition: all 0.4s;
+  border: 1px solid var(--tabs-hover-background);
+  border: 1px solid var(--color);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 200;
+}
+
+.option {
+  position: relative;
+  padding-left: 10px;
+  line-height: 35px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.option:hover {
+  background-color: var(--background-body) !important;
+}
+
+.disabled {
+  color: var(--disabled-light);
+  background-color: var(--hover);
+  cursor: default;
+}
+
+.disabled:hover {
+  border-bottom: 1px solid var(--input-background);
+  background-color: var(--input-background);
+}

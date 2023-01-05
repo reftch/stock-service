@@ -20,7 +20,6 @@ export class SearchElement extends BaseElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    console.log(name);
     if (name === 'keyword' && this.field) {
       this.field.value = newValue;
     }
