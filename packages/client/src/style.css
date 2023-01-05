@@ -33,6 +33,7 @@
   font-weight: normal;
   font-size: 1rem;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 :root {
@@ -94,5 +95,14 @@
     --button-color: #e0e0e0;
     --input-color: #505050;
     --input-background: #efefef; */
+  }
+}
+
+@media screen and (max-width: 850px) {
+
+  *,
+  *:before,
+  *:after {
+    overflow: auto;
   }
 }

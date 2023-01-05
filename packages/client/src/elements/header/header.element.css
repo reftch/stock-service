@@ -4,7 +4,7 @@
   border-bottom: 2px solid var(--selected);
   width: 100%;
   display: inline-grid;
-  grid-template-columns: 190px calc(100vw - 310px) 160px;
+  grid-template-columns: 190px calc(100vw - 245px) 55px;
 }
 
 .header-title {
@@ -52,6 +52,44 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-.username {
-  padding: 10px;
+@media screen and (max-width: 850px) {
+  .header-title {
+    display: none;
+  }
+
+  .header-input {
+    padding-left: 10px;
+    width: 200px;
+  }
+
+  .header {
+    grid-template-columns: auto 55px;
+  }
+
+  .header-right {
+    float: right;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .header-title {
+    display: none;
+  }
+
+  .header-input {
+    padding-left: 10px;
+    width: 250px;
+  }
+
+  .username {
+    display: none;
+  }
+
+  .header {
+    grid-template-columns: auto 55px;
+  }
+
+  .header-right {
+    float: right;
+  }
 }

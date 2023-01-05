@@ -27,3 +27,24 @@ h2 {
   display: flex;
   justify-content: center;
 }
+
+@media screen and (max-width: 850px) {
+
+  .page {
+    overflow: auto;
+  }
+
+  .content {
+    grid-template-columns: 100%;
+    padding-left: 10px;
+  }
+
+  .chart-content {
+    height: 100%;
+  }
+
+  .table-content {
+    padding: 0 20px 0 0px;
+    height: 100%;
+  }
+}

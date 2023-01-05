@@ -6,12 +6,6 @@
 .select {
   display: flex;
   flex-direction: column;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  font-weight: 600;
-  color: var(--input-color);
-  border-bottom: 1px solid var(--hover-background);
-  background-color: var(--background-input);
 }
 
 .select.open .options {
@@ -30,6 +24,8 @@
   line-height: 33px;
   border-radius: 4px;
   border: 1px solid var(--color);
+  color: var(--input-color);
+  background-color: var(--background-input);
 }
 
 .arrow::after {

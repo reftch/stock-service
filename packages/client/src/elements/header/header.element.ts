@@ -4,18 +4,18 @@ import css from './header.element.css?raw';
 
 export class HeaderElement extends BaseElement {
 
-  private username = '';
+  // private username = '';
 
   connectedCallback(): void {
     super.connectedCallback();
     this.getElement('#logout-btn')?.addEventListener('click', this.logout);
 
-    store.subscribe(() => {
-      if (this.username !== store.getState().application.username) {
-        this.username = store.getState().application.username;
-        (this.getElement('.username') as HTMLElement).innerHTML = this.username;
-      }
-    });
+    // store.subscribe(() => {
+    //   if (this.username !== store.getState().application.username) {
+    //     this.username = store.getState().application.username;
+    //     (this.getElement('.username') as HTMLElement).innerHTML = this.username;
+    //   }
+    // });
   }
 
   logout = () => {
@@ -36,7 +36,6 @@ export class HeaderElement extends BaseElement {
         </div>
 
         <div class="header-right">
-          <div class="username"></div>
           <button id="logout-btn"><span class="logout"></span></button>
         </div>
       </div>
