@@ -20,12 +20,10 @@ h2 {
 .chart-content,
 .table-content {
   padding: 0 20px 0 0px;
-  border: 1px solid var(--color);
   height: calc(100vh - 140px);
 }
 
 .select {
   display: flex;
   justify-content: center;
-  padding-top: 10px;
 }

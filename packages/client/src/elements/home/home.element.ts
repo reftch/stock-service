@@ -14,6 +14,7 @@ export class HomeElement extends BaseElement {
     actions.application.info(store.dispatch, this.onInfo, this.error);
 
     store.subscribe(this.storeUpdate);
+    this.getElement('select-element')?.addEventListener('change', this.priceSelected)
   }
 
   storeUpdate = () => {
@@ -22,6 +23,14 @@ export class HomeElement extends BaseElement {
     if (company && this.item?.symbol != company.symbol) {
       this.item = company;
       this.requestRender();
+    }
+  }
+
+  priceSelected = (e: Event) => {
+    const date = (e as CustomEvent).detail.value;
+    const data = store.getState().company.prices.find((p: PriceState) => p.date === date);
+    if (data) {
+      this.getElement('chart-element')?.setAttribute('data', JSON.stringify(data));
     }
   }
 
@@ -41,12 +50,18 @@ export class HomeElement extends BaseElement {
     (this.getElement('table-element') as DynamicObject).requestUpdate();
 
     actions.company.prices(store.dispatch, this.onPrices, this.error);
-    (this.getElement('chart-element') as DynamicObject).requestUpdate();
+    // (this.getElement('chart-element') as DynamicObject).requestUpdate();
   }
 
   onPrices = () => {
     const dates = store.getState().company.prices.map((p: PriceState) => p.date);
+    this.getElement('select-element')?.setAttribute('value', dates[0]);
     this.getElement('select-element')?.setAttribute('options', JSON.stringify(dates));
+
+    // const data = store.getState().company.prices.find((p: PriceState) => p.date === dates[0]);
+    // if (data) {
+    //   this.getElement('chart-element')?.setAttribute('data', JSON.stringify(data));
+    // }
   }
 
   requestUpdate() {
@@ -64,7 +79,7 @@ export class HomeElement extends BaseElement {
         <div class="content">
           <div class="chart-content">
             <div class="select">
-              <select-element value="Daily prices..." width="200"></select-element>
+              <select-element value="Daily prices..." width="250"></select-element>
             </div>
             <chart-element></chart-element>
           </div>

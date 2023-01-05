@@ -8,6 +8,7 @@ export class SelectElement extends BaseElement {
   }
 
   private disabled = false;
+  private options = [];
 
   connectedCallback() {
     super.connectedCallback();
@@ -22,6 +23,9 @@ export class SelectElement extends BaseElement {
     switch (name) {
       case 'value': {
         (this.getElement('.value') as HTMLElement).innerHTML = newValue;
+        this.dispatchEvent(new CustomEvent("change", {
+          detail: { id: this.id, value: newValue }
+        }));
         break;
       }
 
@@ -31,8 +35,8 @@ export class SelectElement extends BaseElement {
       }
 
       case 'options': {
-        const options = JSON.parse(newValue);
-        this.renderOptions(options);
+        this.options = JSON.parse(newValue);
+        this.renderOptions();
         break;
       }
 
@@ -49,11 +53,11 @@ export class SelectElement extends BaseElement {
     }
   }
 
-  renderOptions(options: []) {
+  renderOptions() {
     const el = this.getElement('.options');
-    if (el && options && options.length > 0) {
+    if (el && this.options && this.options.length > 0) {
       let html = `<div style="padding-top: 5px">`;
-      html += options.map((o: string) => /*html*/`<div class="option" data-value="${o}">${o}</div>`).join('');
+      html += this.options.map((o: string) => /*html*/`<div class="option" data-value="${o}">${o}</div>`).join('');
       html += `</div>`;
       el.innerHTML = html;
     }
@@ -70,7 +74,7 @@ export class SelectElement extends BaseElement {
   }
 
   activate = (e: Event) => {
-    if (this.disabled) {
+    if (this.disabled || this.options.length === 0) {
       return;
     }
 
