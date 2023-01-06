@@ -4,18 +4,13 @@ import css from './header.element.css?raw';
 
 export class HeaderElement extends BaseElement {
 
-  // private username = '';
-
   connectedCallback(): void {
     super.connectedCallback();
     this.getElement('#logout-btn')?.addEventListener('click', this.logout);
+  }
 
-    // store.subscribe(() => {
-    //   if (this.username !== store.getState().application.username) {
-    //     this.username = store.getState().application.username;
-    //     (this.getElement('.username') as HTMLElement).innerHTML = this.username;
-    //   }
-    // });
+  disconnectedCallback(): void {
+    this.getElement('#logout-btn')?.removeEventListener('click', this.logout);
   }
 
   logout = () => {

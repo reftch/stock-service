@@ -10,4 +10,3 @@ export type AppDispatch = typeof store.dispatch;
 export interface ActionCallback {
   (response?: Response): void;
 }
-

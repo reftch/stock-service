@@ -34,8 +34,10 @@ export class SearchElement extends BaseElement {
       store.dispatch({ type: 'company/setItems', items: [] });
       this.collapse();
     }
+
+    // TODO: Enter, Escape handlers
     if ((e as KeyboardEvent).key === 'Enter') {
-      // const
+
     }
   }
 
@@ -92,7 +94,7 @@ export class SearchElement extends BaseElement {
   get html(): string {
     return /*html*/`
       <div class="input-field">
-        <input id="search-field" type="text" placeholder="Select a Company..." />
+        <input id="search-field" type="text" placeholder="Search a Company..." />
         <div id="options" class="options"></div>
       </div>
     `;

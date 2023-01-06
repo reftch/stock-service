@@ -6,11 +6,6 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
     return {
       base: "/stock-service",
       publicDir: "src/assets",
-      build: {
-        minify: "terser",
-        target: 'esnext',
-        outDir: "public",
-      },
       server: {
         host: '0.0.0.0',
         port: 3000,
