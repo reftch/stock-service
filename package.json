@@ -9,7 +9,7 @@
     "dev": "pnpm -r --parallel --filter='./packages/*' run dev",
     "build": "pnpm -r --filter='./packages/*' run build",
     "test": "pnpm --filter='./packages/e2e' run test",
-    "clean": "pnpm -r --filter='./packages/*' run clean && rimraf dist && rimraf node_modules"
+    "clean": "pnpm -r --filter='./packages/*' run clean && rimraf dist && rimraf test && rimraf node_modules"
   },
   "devDependencies": {
     "esbuild": "^0.16.12",
