@@ -83,6 +83,10 @@
   color-scheme: light dark;
   color: var(--color);
   background-color: var(--background-body);
+
+  --scrollbar-track: #bac1c7;
+  --scrollbar-thumb: #b0b0b0;
+  --scrollbar-button: #e0e0e0;
 }
 
 @media (prefers-color-scheme: light) {

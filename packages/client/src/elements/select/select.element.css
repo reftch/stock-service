@@ -95,3 +95,23 @@
   border-bottom: 1px solid var(--input-background);
   background-color: var(--input-background);
 }
+
+/* scolling */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+}
+
+::-webkit-scrollbar-button {
+  height: 14px;
+  width: 14px;
+  background: var(--scrollbar-button);
+}

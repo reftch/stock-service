@@ -49,3 +49,23 @@
   border-top: 2px solid var(--selected);
   border-bottom: 2px solid var(--selected);
 }
+
+/* scolling */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+}
+
+::-webkit-scrollbar-button {
+  height: 14px;
+  width: 14px;
+  background: var(--scrollbar-button);
+}
