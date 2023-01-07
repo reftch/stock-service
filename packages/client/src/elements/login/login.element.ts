@@ -32,13 +32,13 @@ export class LoginElement extends BaseElement {
 
   get html() {
     return /*html*/`
-      <div class="wrapper">
+      <div class="wrapper" data-testid="login-element">
         <form id="form-signin" class="form-signin">
-          <h2 class="form-signin-heading">Please login</h2>
-          <input id="username" type="text" class="form-control" name="username" placeholder="Username" required="" />
-          <input id="password" type="password" class="form-control" name="password" placeholder="Password" required=""/>
+          <h2 class="form-signin-heading" data-testid="title">Please login</h2>
+          <input id="username" data-testid="username" type="text" class="form-control" name="username" placeholder="Username" required="" />
+          <input id="password" data-testid="password" type="password" class="form-control" name="password" placeholder="Password" required=""/>
           <div class="bottom">
-             <button id="submit-btn" type="submit" >Login</button>
+             <button id="submit-btn" data-testid="submit-btn" type="submit" >Login</button>
           </div>
         </form>
       </div>

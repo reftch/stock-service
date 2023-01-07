@@ -137,4 +137,6 @@ dist
 dist
 node_modules
 
+# test reports
+test
 # End of https://www.toptal.com/developers/gitignore/api/node,dotenv

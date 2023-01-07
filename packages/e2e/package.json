@@ -1,0 +1,15 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.29.1",
+    "rimraf": "^3.0.2"
+  },
+  "scripts": {
+    "test": "playwright test --config=./playwright.config.ts",
+    "e2e": "npm run dev --prefix ../client",
+    "clean": "rimraf node_modules"
+  }
+}
